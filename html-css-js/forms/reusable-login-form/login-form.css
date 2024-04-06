@@ -1,0 +1,126 @@
+login-form {
+    --login-form-font-color: #ffffff;
+    --login-form-bg-color: #808080;
+    --login-form-input-font: #808080;
+    --login-form-input-border-color: #00ffff;
+    --login-form-btn-color: #00ffff;
+    --login-form-btn-font-color: #808080;
+    --login-form-input-error-msg-color: #ff0000;
+    --login-form-logo: url('loginLogo.png');
+    --login-form-img-height: 150px;
+    --login-form-outer-padding: 3rem;
+    --login-form-outer-padding-768: 5rem 1rem 5rem 1rem;
+    --login-form-header-bottom-margin: 3rem;
+    --login-form-fields-bottom-margin: 2rem;
+    --login-form-min-width: 60%;
+    --login-form-min-width-768: 80%;
+}
+
+#loginFormContainer {
+    user-select: none;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--login-form-bg-color);
+    border-radius: 1rem;
+    padding: var(--login-form-outer-padding);
+    min-width: var(--login-form-min-width);
+    display: flex;
+    flex-direction: column;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#loginFormHeader {
+    text-align: center;
+    margin-bottom: var(--login-form-header-bottom-margin);
+}
+
+#loginFormImage {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: var(--login-form-img-height);
+    width: auto;
+    background-image: var(--login-form-logo);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#loginBtn {
+    padding: 0.4rem 0.75rem;
+    border-color: transparent;
+    border-radius: 0.5rem;
+    background-color: var(--login-form-btn-color);
+    color: var(--login-form-btn-font-color);
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--login-form-fields-bottom-margin);
+    flex-grow: 1;
+}
+
+.form-group label {
+    flex: 1;
+    margin-top: 0.5rem;
+}
+
+.form-input-group {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+@media screen and (max-width: 768px) {
+    #loginFormContainer {
+        padding: var(--login-form-outer-padding-768);
+        min-width: var(--login-form-min-width-768);
+    }
+}
+
+.form-input {
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border-color: transparent;
+}
+
+.form-input:active,
+.form-input:focus,
+.form-input:focus-within,
+.form-input:focus-visible {
+    border: 0.1rem solid var(--login-form-input-border-color);
+}
+
+.font-login {
+    color: var(--login-form-font-color);
+}
+
+.font-login-input {
+    color: var(--login-form-input-font);
+}
+
+.error-message {
+    margin-top: 0.1rem;
+    font-size: smaller;
+}
+
+.error-message.inactive {
+    color: transparent;
+}
+
+.error-message.active {
+    color: var(--login-form-input-error-msg-color);
+}
