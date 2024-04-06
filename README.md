@@ -1,5 +1,7 @@
 # Login Form
 
+Stop wasting your time and energy on creating login forms from scratch! Our Login Form Template is the ultimate solution to your problem. With its customizable features, you'll have the power to create forms that meet your exact needs. Don't hesitate - take control of your form creation process today!
+
 ## How to use?
 Import the login form script hosted in a CDN to your HTML 
 
