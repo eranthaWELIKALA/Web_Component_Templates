@@ -36,21 +36,18 @@ class LoginForm extends HTMLElement {
       `;
 
         shadow.appendChild(template.content.cloneNode(true));
-        // this.connectedCallback();    
     }
 
     connectedCallback() {
-        console.log("connectedCallback was called");
-        // Set CSS custom properties based on attributes
+        const titleFontColor = this.getAttribute('title-font-color') || '#ffffff';
         const fontColor = this.getAttribute('font-color') || '#ffffff';
-        console.log(this.getAttribute('bg-color'));
         const bgColor = this.getAttribute('bg-color') || '#808080';
         const inputFontColor = this.getAttribute('input-font-color') || '#808080';
         const inputBorderColor = this.getAttribute('input-border-color') || '#00ffff';
         const btnColor = this.getAttribute('btn-color') || '#00ffff';
         const btnFontColor = this.getAttribute('btn-font-color') || '#808080';
         const inputErrorMsgColor = this.getAttribute('input-error-msg-color') || '#ff0000';
-        const logo = this.getAttribute('logo') || 'url("loginLogo.png")';
+        const logo = this.getAttribute('logo') || 'loginLogo.png';
         const imgHeight = this.getAttribute('img-height') || '150px';
         const outerPadding = this.getAttribute('outer-padding') || '3rem';
         const outerPadding768 = this.getAttribute('outer-padding-768') || '5rem 1rem 5rem 1rem';
@@ -59,6 +56,7 @@ class LoginForm extends HTMLElement {
         const minWidth = this.getAttribute('min-width') || '60%';
         const minWidth768 = this.getAttribute('min-width-768') || '80%';
 
+        this.style.setProperty('--login-form-title-font-color', titleFontColor);
         this.style.setProperty('--login-form-font-color', fontColor);
         this.style.setProperty('--login-form-bg-color', bgColor);
         this.style.setProperty('--login-form-input-font', inputFontColor);
@@ -66,7 +64,7 @@ class LoginForm extends HTMLElement {
         this.style.setProperty('--login-form-btn-color', btnColor);
         this.style.setProperty('--login-form-btn-font-color', btnFontColor);
         this.style.setProperty('--login-form-input-error-msg-color', inputErrorMsgColor);
-        this.style.setProperty('--login-form-logo', logo);
+        this.style.setProperty('--login-form-logo', `url(${logo})`);
         this.style.setProperty('--login-form-img-height', imgHeight);
         this.style.setProperty('--login-form-outer-padding', outerPadding);
         this.style.setProperty('--login-form-outer-padding-768', outerPadding768);
@@ -81,7 +79,6 @@ class LoginForm extends HTMLElement {
 
 
     setupTextContents() {
-        // Update placeholders, labels, and form title
         const formTitle = this.shadowRoot.getElementById('formTitle');
         const usernameInput = this.shadowRoot.getElementById('username');
         const passwordInput = this.shadowRoot.getElementById('password');
@@ -97,7 +94,7 @@ class LoginForm extends HTMLElement {
         if (formTitleValue) {
             formTitle.textContent = formTitleValue;
         } else {
-            formTitle.style.display = 'none'; // Hide form title if not specified
+            formTitle.style.display = 'none';
         }
 
         if (usernamePlaceholder) {
@@ -124,16 +121,34 @@ class LoginForm extends HTMLElement {
         const usernameError = this.shadowRoot.getElementById('usernameError');
         const passwordError = this.shadowRoot.getElementById('passwordError');
 
+        const formAction = this.getAttribute('form-action');
+        const formMethod = this.getAttribute('form-method');
+        const onSubmit = this.getAttribute('onsubmit');
+
+        if (formAction) {
+            form.setAttribute('action', formAction);
+        }
+
+        if (formMethod) {
+            form.setAttribute('method', formMethod);
+        }
+
+        const loginForm = this;
+
         form.addEventListener('submit', function (event) {
             let isValid = true;
 
-            // Reset error messages
             usernameError.textContent = '';
             passwordError.textContent = '';
 
-            // Validate username
             if (usernameInput.value.trim() === '') {
-                usernameError.textContent = 'Username is required';
+                const usernameLabelValue = loginForm.getAttribute('username-label');
+                if (usernameLabelValue) {
+                    usernameError.textContent = `${usernameLabelValue} is required`;
+                }
+                else {
+                    usernameError.textContent = 'Username is required';
+                }
                 usernameError.classList.remove("inactive");
                 usernameError.classList.add("active");
                 isValid = false;
@@ -144,9 +159,14 @@ class LoginForm extends HTMLElement {
                 usernameError.classList.add("inactive");
             }
 
-            // Validate password
             if (passwordInput.value.trim() === '') {
-                passwordError.textContent = 'Password is required';
+                const passwordLabelValue = loginForm.getAttribute('password-label');
+                if (passwordLabelValue) {
+                    passwordError.textContent = `${passwordLabelValue} is required`;
+                }
+                else {
+                    passwordError.textContent = 'Password is required';
+                }
                 passwordError.classList.remove("inactive");
                 passwordError.classList.add("active");
                 isValid = false;
@@ -157,9 +177,18 @@ class LoginForm extends HTMLElement {
                 passwordError.classList.add("inactive");
             }
 
-            // Prevent form submission if not valid
             if (!isValid) {
                 event.preventDefault();
+            }
+            else {
+                if (onSubmit && typeof window[onSubmit] === 'function') {
+                    event.preventDefault();
+                    const usernameLabel = this.getAttribute('username-label') || 'username';
+                    const passwordLabel = this.getAttribute('password-label') || 'password';
+                    event[usernameLabel] = usernameInput.value;
+                    event[passwordLabel] = passwordInput.value;
+                    window[onSubmit].call(this, event);
+                }
             }
         });
     }
