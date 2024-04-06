@@ -103,6 +103,10 @@ class LoginForm extends HTMLElement {
         const usernameLabelValue = this.getAttribute('username-label');
         const passwordLabelValue = this.getAttribute('password-label');
 
+        const loginBtn = this.shadowRoot.getElementById('loginBtn');
+        const loginText = this.getAttribute('login-text') || "Login";
+        loginBtn.value = loginText;
+
         if (formTitleValue) {
             formTitle.textContent = formTitleValue;
         } else {
