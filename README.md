@@ -53,7 +53,7 @@ https://eranthawelikala.github.io/web-component-templates/html-css-js/forms/reus
         forgot-password-callback="forgotPassword"
         forgot-password-text="Forgot Password?"
         registration-link-color="purple"
-        registration-callback="reegister"
+        registration-callback="register"
         registration-text="Don't have an account? Sign Up"
         logo="<your-logo>"
         img-height="200px"
