@@ -31,6 +31,10 @@ class LoginForm extends HTMLElement {
               </div>
   
               <input id="loginBtn" name="loginBtn" class="loginBtn" type="submit" value="Login">
+
+              <a id="registrationLink" href="" class="d-none">Register</a>
+
+              <a id="forgotPasswordLink" href="" class="d-none">Forgot Password</a>
           </form>
         </div>
       `;
@@ -47,6 +51,8 @@ class LoginForm extends HTMLElement {
         const btnColor = this.getAttribute('btn-color') || '#00ffff';
         const btnFontColor = this.getAttribute('btn-font-color') || '#808080';
         const inputErrorMsgColor = this.getAttribute('input-error-msg-color') || '#ff0000';
+        const forgotPasswordLinkColor = this.getAttribute('forgot-password-link-color') || '#ffffff';
+        const registrationLinkColor = this.getAttribute('registration-link-color') || '#ffffff';
         const logo = this.getAttribute('logo') || 'loginLogo.png';
         const imgHeight = this.getAttribute('img-height') || '150px';
         const outerPadding = this.getAttribute('outer-padding') || '3rem';
@@ -64,6 +70,8 @@ class LoginForm extends HTMLElement {
         this.style.setProperty('--login-form-btn-color', btnColor);
         this.style.setProperty('--login-form-btn-font-color', btnFontColor);
         this.style.setProperty('--login-form-input-error-msg-color', inputErrorMsgColor);
+        this.style.setProperty('--login-form-forgot-password-link-color', forgotPasswordLinkColor);
+        this.style.setProperty('--login-form-registration-link-color', registrationLinkColor);
         this.style.setProperty('--login-form-logo', `url(${logo})`);
         this.style.setProperty('--login-form-img-height', imgHeight);
         this.style.setProperty('--login-form-outer-padding', outerPadding);
@@ -75,6 +83,10 @@ class LoginForm extends HTMLElement {
 
         this.setupTextContents();
         this.setupValidation();
+        const isRegistrationLinkRequired = this.getAttribute('registration-callback') || null;
+        if (isRegistrationLinkRequired) this.setupRegistrationLink();
+        const isForgotPasswordRequired = this.getAttribute('forgot-password-callback') || null;
+        if (isForgotPasswordRequired) this.setupForgotPassword();
     }
 
 
@@ -191,6 +203,43 @@ class LoginForm extends HTMLElement {
                 }
             }
         });
+    }
+
+    setupRegistrationLink() {
+        const registrationLink = this.shadowRoot.getElementById('registrationLink');
+        registrationLink.classList.remove("d-none");
+        const registrationLinkCallback = this.getAttribute('registration-callback') || "#";
+        const registrationLinkText = this.getAttribute('registration-text') || "Register";
+        registrationLink.textContent = registrationLinkText;
+        if (registrationLinkCallback && typeof window[registrationLinkCallback] === 'function') {
+            registrationLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                window[registrationLinkCallback].call(this, {});
+            });
+        }
+        else {
+            registrationLink.href = registrationLinkCallback;
+        }
+    }
+
+    setupForgotPassword() {
+        const forgotPasswordLink = this.shadowRoot.getElementById('forgotPasswordLink');
+        forgotPasswordLink.classList.remove("d-none");
+        const forgotPasswordCallback = this.getAttribute('forgot-password-callback') || "#";
+        const forgotPasswordText = this.getAttribute('forgot-password-text') || "Forgot Password";
+        const usernameInput = this.shadowRoot.getElementById('username');
+        const usernameLabel = this.getAttribute('username-label') || 'username';
+        forgotPasswordLink.textContent = forgotPasswordText;
+        if (forgotPasswordCallback && typeof window[forgotPasswordCallback] === 'function') {
+            forgotPasswordLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                event[usernameLabel] = usernameInput.value;
+                window[forgotPasswordCallback].call(this, event);
+            });
+        }
+        else {
+            forgotPasswordLink.href = forgotPasswordCallback;
+        }
     }
 }
 

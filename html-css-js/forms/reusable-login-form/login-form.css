@@ -7,6 +7,8 @@ login-form {
     --login-form-btn-color: #00ffff;
     --login-form-btn-font-color: #808080;
     --login-form-input-error-msg-color: #ff0000;
+    --login-form-forgot-password-link-color: #ffffff;
+    --login-form-registration-link-color: #ffffff;
     --login-form-logo: url('loginLogo.png');
     --login-form-img-height: 150px;
     --login-form-outer-padding: 3rem;
@@ -125,4 +127,22 @@ login-form {
 
 .error-message.active {
     color: var(--login-form-input-error-msg-color);
+}
+
+#registrationLink {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: small;
+    color: var(--login-form-registration-link-color);
+}
+
+#forgotPasswordLink {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: small;
+    color: var(--login-form-forgot-password-link-color);
+}
+
+.d-none {
+    display: none;
 }
