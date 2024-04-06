@@ -48,7 +48,7 @@
         registration-link-color="purple"
         registration-callback="reegister"
         registration-text="Don't have an account? Sign Up"
-        logo=<your-logo>"
+        logo="<your-logo>"
         img-height="200px"
         outer-padding="2.5rem"
         outer-padding-768="1rem"
