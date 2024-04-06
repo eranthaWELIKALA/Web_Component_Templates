@@ -48,7 +48,7 @@
         registration-link-color="purple"
         registration-callback="reegister"
         registration-text="Don't have an account? Sign Up"
-        logo="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-1/425900308_2130299897340340_2635919338795070148_n.jpg?stp=c1.3.318.318a_dst-jpg_p320x320&_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeE-Ze717EJMn8fqvivSoz6JLLuDznjSxOAsu4POeNLE4H8Qlf9TuS0pMqHr3BxPQM4fjXaQrJa8y-7W2Iu2IN_2&_nc_ohc=4fZs0AmOsZUAb4zTJ3v&_nc_ht=scontent.fcmb1-2.fna&oh=00_AfD-br6XROgWHLFnkgQ5SbF4DfGF1pYSAezuUK5b5eJc1w&oe=66173341"
+        logo=<your-logo>"
         img-height="200px"
         outer-padding="2.5rem"
         outer-padding-768="1rem"
