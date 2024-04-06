@@ -1,4 +1,10 @@
 # Login Form
+
+# How to use?
+Import the login form script hosted in a CDN to your HTML 
+https://eranthawelikala.github.io/web-component-templates/html-css-js/forms/reusable-login-form/login-form.min.js
+
+
 ## Default Login Form
 ```
 <!DOCTYPE html>
